@@ -10,6 +10,7 @@ import Header from './components/Header';
 import MyPage from './components/Mypage';
 import Home from './components/Home';
 import Plan from './components/Plan';
+import PlanDetail from './components/PlanDetail';
 import SignIn from './components/SignIn';
 import SignUp from './components/SignUp';
 import FindId from './components/FindId';
@@ -54,6 +55,8 @@ function Layout() {
         <Route path="/home" element={<Home />} />
         <Route path="/mypage" element={<MyPage />} />
         <Route path="/plan" element={<Plan />} />
+
+        <Route path="/plan-detail" element={<PlanDetail />} />
 
         {/* 여행 관련 */}
         <Route

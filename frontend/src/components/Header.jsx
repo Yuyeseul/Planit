@@ -9,7 +9,7 @@ function Header() {
     <div className="header">
       <header style={styles.header}>
         <Link to="/" style={styles.logo}>
-          PlanIt
+          Planit
         </Link>
 
         <Link to="/mypage" style={styles.mypage}>
@@ -37,7 +37,7 @@ const styles = {
     backgroundColor: '#cfe2ff',
     padding: '10px 20px',
     borderBottom: '1px solid #ddd',
-    height: '60px',
+    height: '50px',
   },
   logo: {
     position: 'absolute',
@@ -45,6 +45,10 @@ const styles = {
     left: '50%',
     transform: 'translate(-50%, -50%)',
     cursor: 'pointer',
+    fontWeight: 'bold',
+    fontSize: '40px',
+    color: '#ffffff',
+    textDecoration: 'none',
   },
   mypage: {
     position: 'absolute',

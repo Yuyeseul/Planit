@@ -1,13 +1,16 @@
+import planitLogo from '../assets/planit_logo.png';
 import React, { useState } from 'react';
+import FriendsList from './FriendsList';
+import { useNavigate } from 'react-router-dom';
 
 function Plan() {
   const [planList, setPlanList] = useState({
     title: '',
-    date: '',
-    friends: '',
+    startDate: '',
+    endDate: '',
   });
 
-  const { title, date, friends } = planList;
+  const { title, startDate, endDate } = planList;
 
   function onChange(e) {
     const { name, value } = e.target;
@@ -17,16 +20,32 @@ function Plan() {
     }));
   }
 
+  const mockFriends = [
+    { id: 1, name: 'Alice', avatar: planitLogo },
+    { id: 2, name: 'Bob', avatar: planitLogo },
+    { id: 3, name: 'Charlie', avatar: planitLogo },
+  ];
+
+  const [isFriendsOpen, setIsFriendsOpen] = useState(false);
+
+  function handleInviteFriends() {
+    // 친구 초대 로직을 여기에 추가하세요
+    alert('친구 초대 기능은 아직 구현되지 않았습니다.');
+  }
+
+  const navigate = useNavigate();
+
   function handleSubmit(e) {
     e.preventDefault();
-    // 계획 생성 로직 추가
     console.log(planList);
+    navigate('/plan-detail');
   }
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>이곳은 Plan 입니다</h1>
+      <h1 style={styles.title}>새로운 계획 생성</h1>
       <form onSubmit={handleSubmit} style={styles.form}>
+        {/* 제목 */}
         <div style={styles.inputGroup}>
           <label style={styles.label}>
             제목
@@ -39,30 +58,54 @@ function Plan() {
             />
           </label>
         </div>
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>
-            기간
-            <input
-              type="text"
-              name="date"
-              value={date}
-              onChange={onChange}
-              style={styles.input}
-            />
-          </label>
+
+        {/* 시작 날짜 ~ 종료 날짜 */}
+        <div style={styles.dateRow}>
+          <div style={styles.dateInputWrapper}>
+            <label style={styles.label}>
+              출발일
+              <input
+                type="date"
+                name="startDate"
+                value={startDate}
+                onChange={onChange}
+                style={styles.input}
+              />
+            </label>
+          </div>
+
+          <span style={styles.tilde}> </span>
+
+          <div style={styles.dateInputWrapper}>
+            <label style={styles.label}>
+              도착일
+              <input
+                type="date"
+                name="endDate"
+                value={endDate}
+                onChange={onChange}
+                style={styles.input}
+              />
+            </label>
+          </div>
         </div>
-        <div style={styles.inputGroup}>
-          <label style={styles.label}>
-            친구목록
-            <input
-              type="text"
-              name="friends"
-              value={friends}
-              onChange={onChange}
-              style={styles.input}
-            />
-          </label>
+
+        {/* 친구 초대 */}
+        <div style={{ ...styles.inputGroup, ...styles.row }}>
+          <label style={styles.labelInline}>친구 초대</label>
+          <button type="button" onClick={() => setIsFriendsOpen(true)} style={styles.inviteButton}>
+            ➕︎
+          </button>
         </div>
+
+        {/* 친구목록 팝업 */}
+        <FriendsList
+          isOpen={isFriendsOpen}
+          onClose={() => setIsFriendsOpen(false)}
+          friends={mockFriends}
+        />
+
+        {/* 계획 생성 */}
         <div>
           <button type="submit" style={styles.button}>
             계획 생성
@@ -110,18 +153,44 @@ const styles = {
     border: '1px solid #ccc',
     outline: 'none',
   },
+  dateRow: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: '10px',
+  },
+  dateInputWrapper: {
+    flex: 1,
+  },
+  tilde: {
+    fontSize: '24px',
+    margin: '0 10px',
+    color: '#666',
+  },
+  inviteButton: {
+    padding: '5px 8px',
+    fontSize: '16px',
+    backgroundColor: '#E6E6E6',
+    color: '#000000',
+    border: 'none',
+    borderRadius: '999px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
+  },
+  row: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px',
+  },
   button: {
     padding: '14px 20px',
     fontSize: '20px',
-    backgroundColor: '#4CAF50',
+    backgroundColor: '#003366',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
-  },
-  buttonHover: {
-    backgroundColor: '#45a049',
   },
 };
 
