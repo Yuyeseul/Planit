@@ -1,11 +1,20 @@
 import planitLogo from '../assets/planit_logo.png';
 import React, { useState } from 'react';
+import FriendsList from './FriendsList';
 
 function MyPage() {
   const [user] = useState({
     name: '예슬',
     profileImage: planitLogo,
   });
+
+  const mockFriends = [
+    { id: 1, name: 'Alice', avatar: planitLogo },
+    { id: 2, name: 'Bob', avatar: planitLogo },
+    { id: 3, name: 'Charlie', avatar: planitLogo },
+  ];
+
+  const [isFriendsOpen, setIsFriendsOpen] = useState(false);
 
   function handleEditProfile() {
     alert('프로필 편집');
@@ -27,7 +36,12 @@ function MyPage() {
         </div>
         <div style={styles.friendsSection}>
           <p style={styles.friendsCount}>친구 n</p>
-          <button style={styles.addFriendBtn}>목록</button>
+          <button
+            style={styles.addFriendBtn}
+            onClick={() => setIsFriendsOpen(true)} // 목록 버튼 클릭시 팝업 열기
+          >
+            목록
+          </button>
         </div>
       </div>
 
@@ -36,6 +50,13 @@ function MyPage() {
         <div style={styles.card}></div>
         <div style={styles.card}></div>
       </div>
+
+      {/* 친구목록 팝업 */}
+      <FriendsList
+        isOpen={isFriendsOpen}
+        onClose={() => setIsFriendsOpen(false)}
+        friends={mockFriends}
+      />
     </div>
   );
 }

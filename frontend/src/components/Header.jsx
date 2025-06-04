@@ -9,7 +9,7 @@ function Header() {
     <div className="header">
       <header style={styles.header}>
         <Link to="/" style={styles.logo}>
-          <img src={planitLogo} alt="PlanIt Logo" />
+          PlanIt
         </Link>
 
         <Link to="/mypage" style={styles.mypage}>

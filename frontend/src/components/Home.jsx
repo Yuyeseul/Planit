@@ -23,26 +23,41 @@ function Home() {
 
   const navigate = useNavigate();
 
-  function handleClick() {
-    navigate('/plan');
+  function handlePlaceClick(type, placeName) {
+    navigate(`/travel/${type}/${placeName}`);
+  }
+
+  function handleMoreClick(type) {
+    if (type === 'domestic') navigate('/travel/domestic');
+    else if (type === 'overseas') navigate('/travel/overseas');
   }
 
   return (
     <div style={styles.container}>
-      {/* 메인 영역 */}
       <main style={styles.main}>
-        {/* 여행 계획 생성 및 추천 */}
         <section style={styles.section}>
-          <button onClick={handleClick} style={styles.planButton}>
+          <button onClick={() => navigate('/plan')} style={styles.planButton}>
             + 여행 계획 생성
           </button>
           <div style={styles.travelGrid}>
-            {/* 국내 여행 */}
+            {/* 국내 여행 카드 */}
             <div style={styles.travelCard}>
-              <h2 style={styles.heading}>국내 여행</h2>
+              <h2 style={styles.heading}>
+                국내 여행
+                <button
+                  style={styles.moreButton}
+                  onClick={() => handleMoreClick('domestic')}
+                >
+                  + 더보기
+                </button>
+              </h2>
               <div style={styles.placeGrid}>
                 {places.국내.map((place) => (
-                  <div key={place.name} style={styles.placeItem}>
+                  <div
+                    key={place.name}
+                    style={styles.placeItem}
+                    onClick={() => handlePlaceClick('domestic', place.name)}
+                  >
                     <div style={styles.imageWrapper}>
                       <img
                         src={place.image}
@@ -56,12 +71,24 @@ function Home() {
               </div>
             </div>
 
-            {/* 해외 여행 */}
+            {/* 해외 여행 카드 */}
             <div style={styles.travelCard}>
-              <h2 style={styles.heading}>해외 여행</h2>
+              <h2 style={styles.heading}>
+                해외 여행
+                <button
+                  style={styles.moreButton}
+                  onClick={() => handleMoreClick('overseas')}
+                >
+                  + 더보기
+                </button>
+              </h2>
               <div style={styles.placeGrid}>
                 {places.해외.map((place) => (
-                  <div key={place.name} style={styles.placeItem}>
+                  <div
+                    key={place.name}
+                    style={styles.placeItem}
+                    onClick={() => handlePlaceClick('overseas', place.name)}
+                  >
                     <div style={styles.imageWrapper}>
                       <img
                         src={place.image}
@@ -110,7 +137,7 @@ function Home() {
 const styles = {
   container: {
     minHeight: '100vh',
-    backgroundColor: '#ffffff', // Tailwind bg-custom-blue
+    backgroundColor: '#ffffff',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -158,11 +185,6 @@ const styles = {
     display: 'grid',
     gridTemplateColumns: '1fr 1fr',
     gap: '1rem',
-  },
-  placeItem: {
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
   },
   imageWrapper: {
     width: '6rem',
@@ -213,7 +235,22 @@ const styles = {
   checkbox: {
     width: '1rem',
     height: '1rem',
-    accentColor: '#3b82f6', // Tailwind text-blue-500
+    accentColor: '#3b82f6',
+  },
+  moreButton: {
+    marginLeft: '1rem',
+    background: 'none',
+    border: 'none',
+    color: '#3b82f6',
+    fontWeight: 'bold',
+    cursor: 'pointer',
+    fontSize: '1rem',
+  },
+  placeItem: {
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+    cursor: 'pointer',
   },
 };
 
