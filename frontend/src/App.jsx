@@ -17,6 +17,8 @@ import FindId from './components/FindId';
 import FindPassword from './components/FindPassword';
 import TravelList from './components/TravelList';
 import PlaceDetail from './components/PlaceDetail';
+import EditProfile from './components/EditProfile';
+import Settings from './components/Settings';
 
 function App() {
   return (
@@ -54,9 +56,10 @@ function Layout() {
         {/* 로그인 성공 시 이동될 홈 페이지 */}
         <Route path="/home" element={<Home />} />
         <Route path="/mypage" element={<MyPage />} />
+        <Route path="/edit-profile" element={<EditProfile />} />
         <Route path="/plan" element={<Plan />} />
-
         <Route path="/plan-detail" element={<PlanDetail />} />
+        <Route path="/settings" element={<Settings />} />
 
         {/* 여행 관련 */}
         <Route

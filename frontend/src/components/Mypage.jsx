@@ -1,5 +1,6 @@
 import planitLogo from '../assets/planit_logo.png';
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import FriendsList from './FriendsList';
 
 function MyPage() {
@@ -16,8 +17,10 @@ function MyPage() {
 
   const [isFriendsOpen, setIsFriendsOpen] = useState(false);
 
+  const navigate = useNavigate();
+
   function handleEditProfile() {
-    alert('프로필 편집');
+    navigate('/edit-profile');
   }
 
   return (
