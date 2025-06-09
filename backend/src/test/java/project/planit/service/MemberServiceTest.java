@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 import project.planit.domain.Member;
 import project.planit.repository.MemberRepository;
@@ -18,28 +19,35 @@ public class MemberServiceTest {
 
     @Autowired MemberService memberService;
     @Autowired MemberRepository memberRepository;
+    @Autowired PasswordEncoder passwordEncoder;
 
     @Test
     public void 회원가입() throws Exception {
         //given
         Member member = new Member();
         member.setId("memberId");
+        member.setPassword("pass");
+        member.setNickname("nick");
 
         //when
         String savedId = memberService.join(member);
 
         //then
-        assertEquals(member, memberRepository.findById(savedId));
+        Member found = memberRepository.findById(savedId);
+        assertNotNull(found);
+        assertTrue(passwordEncoder.matches("pass", found.getPassword())); // 암호화된 비밀번호 확인
     }
 
     @Test
     public void 중복_아이디_예외() throws Exception {
         Member member1 = new Member();
         member1.setId("memberId");
+        member1.setPassword("pass1");
         member1.setNickname("nick1");
 
         Member member2 = new Member();
         member2.setId("memberId"); // 같은 ID
+        member2.setPassword("pass2");
         member2.setNickname("nick2");
 
         memberService.join(member1);
@@ -51,10 +59,12 @@ public class MemberServiceTest {
     public void 중복_닉네임_예외() throws Exception {
         Member member1 = new Member();
         member1.setId("id1");
+        member1.setPassword("pass");
         member1.setNickname("memberNickName");
 
         Member member2 = new Member();
         member2.setId("id2");
+        member2.setPassword("pass");
         member2.setNickname("memberNickName"); // 같은 닉네임
 
         memberService.join(member1);
@@ -164,7 +174,8 @@ public class MemberServiceTest {
         String password = memberService.findPassword("userId", "userMail");
 
         // then
-        assertEquals("userPw", password);
+        assertNotNull(password); // 비밀번호가 null이 아닌지만 확인
+        assertNotEquals("userPw", password); // 암호화되어 있어야 함
     }
 
     @Test
@@ -193,6 +204,57 @@ public class MemberServiceTest {
             memberService.findPassword("userId", "userMail2");
         });
         assertEquals("이메일이 일치하지 않습니다.", thrown.getMessage());
+    }
+
+    @Test
+    public void 회원정보_수정() throws Exception {
+        // given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("nickA");
+        member.setEmail("mail@a.com");
+        member.setPassword("userPw");
+        memberService.join(member);
+
+        // when
+        memberService.updateMember("userId", "userB", "newPw", "nickB", "mail@b.com", "010-0000-0000", "newImg.jpg");
+
+        // then
+        Member updated = memberRepository.findById("userId");
+        assertEquals("userB", updated.getUsername());
+        assertEquals("nickB", updated.getNickname());
+        assertEquals("mail@b.com", updated.getEmail());
+        assertEquals("010-0000-0000", updated.getPhone());
+        assertEquals("newImg.jpg", updated.getProfileImage());
+
+        assertTrue(memberService.login("userId", "newPw") != null); // 암호화된 비밀번호인지 확인
+    }
+
+    @Test
+    public void 회원정보_수정_중복_닉네임_예외() throws Exception {
+        // given
+        Member member1 = new Member();
+        member1.setId("id1");
+        member1.setUsername("userA");
+        member1.setNickname("nickA");
+        member1.setEmail("mail@a.com");
+        member1.setPassword("pw");
+        memberService.join(member1);
+
+        Member member2 = new Member();
+        member2.setId("id2");
+        member2.setUsername("userB");
+        member2.setNickname("nickB");
+        member2.setEmail("mail@b.com");
+        member2.setPassword("pw");
+        memberService.join(member2);
+
+        // when & then - id2가 nickA로 바꾸려 하면 예외 발생
+        IllegalStateException ex = assertThrows(IllegalStateException.class, () -> {
+            memberService.updateMember("id2", "userB", "newPw", "nickA", "mail@b.com", "010", "img.jpg");
+        });
+        assertEquals("이미 존재하는 닉네임입니다.", ex.getMessage());
     }
 
     @Test

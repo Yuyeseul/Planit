@@ -24,7 +24,7 @@ public class Member {
 
     @Column(unique = true)
     private String email;
-    private String profile_image;
+    private String profileImage;
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Plan> plans = new ArrayList<>();
