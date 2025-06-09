@@ -41,6 +41,8 @@ public class MemberController {
         return ResponseEntity.ok(password);
     }
 
+    //회원정보 수정
+
     // 회원 탈퇴
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteMember(@PathVariable String id) {
