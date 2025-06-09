@@ -1,6 +1,7 @@
 package project.planit.repository;
 
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.NoResultException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import project.planit.domain.Member;
@@ -17,23 +18,36 @@ public class MemberRepository {
         em.persist(member);
     }
 
-    public Member findOne(Long id) {
-        return em.find(Member.class, id);
-    }
-
     public List<Member> findAll() {
         return em.createQuery("select m from Member m", Member.class).getResultList();
     }
 
-    public List<Member> findById(String id) {
-        return em.createQuery("select m from Member m where m.id = :id", Member.class)
-                .setParameter("id", id)
-                .getResultList();
+    public Member findById(String id) {
+        return em.find(Member.class, id);
     }
 
-    public List<Member> findByNickName(String nickname) {
-        return em.createQuery("select m from Member m where m.nickname = :nickname", Member.class)
-                .setParameter("nickname", nickname)
-                .getResultList();
+    public Member findByNickname(String nickname) {
+        try{
+            return em.createQuery("select m from Member m where m.nickname = :nickname", Member.class)
+                    .setParameter("nickname", nickname)
+                    .getSingleResult();
+        } catch (NoResultException e){
+            return null;
+        }
+    }
+
+    public Member findByNameAndEmail(String username, String email) {
+        try {
+            return em.createQuery("select m from Member m where m.username = :username and m.email = :email", Member.class)
+                    .setParameter("username", username)
+                    .setParameter("email", email)
+                    .getSingleResult();
+        } catch (NoResultException e) {
+            return null;
+        }
+    }
+
+    public void delete(Member member) {
+        em.remove(em.contains(member) ? member : em.merge(member));
     }
 }

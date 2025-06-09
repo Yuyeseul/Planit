@@ -12,21 +12,26 @@ import java.util.List;
 public class Member {
 
     @Id
-    @GeneratedValue
     private String id;
     private String username;
     private String password;
+
+    @Column(unique = true)
     private String nickname;
+
+    @Column(unique = true)
     private String phone;
+
+    @Column(unique = true)
     private String email;
     private String profile_image;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Plan> plans = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Friend> friends = new ArrayList<>();
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CheckList> checklist = new ArrayList<>();
 }

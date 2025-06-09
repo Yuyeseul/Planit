@@ -20,10 +20,10 @@ public class Plan {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    @OneToMany(mappedBy = "plan")
-    private List<Friend> friends;
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Friend> friends = new ArrayList<>();
 
-    @OneToMany(mappedBy = "plan")
+    @OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Schedule> schedules = new ArrayList<>();
 }
 

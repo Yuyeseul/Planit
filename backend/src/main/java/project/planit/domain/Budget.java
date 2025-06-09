@@ -9,8 +9,7 @@ public class Budget {
     @GeneratedValue
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "schedule_id")
+    @OneToOne(mappedBy = "budget")
     private Schedule schedule;
 
     private int amount;

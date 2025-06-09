@@ -1,15 +1,16 @@
 package project.planit.service;
 
-import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Rollback;
 import project.planit.domain.Member;
 import project.planit.repository.MemberRepository;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @Transactional
@@ -28,7 +29,7 @@ public class MemberServiceTest {
         String savedId = memberService.join(member);
 
         //then
-        assertEquals(member, memberRepository.findOne(savedId));
+        assertEquals(member, memberRepository.findById(savedId));
     }
 
     @Test
@@ -61,4 +62,156 @@ public class MemberServiceTest {
         assertThrows(IllegalStateException.class, () -> memberService.join(member2));
     }
 
+    @Test
+    public void 로그인_성공() {
+        // given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("userA");
+        member.setEmail("userA");
+        member.setPassword("userPw");
+
+        memberService.join(member);
+
+        // when
+        Member loginMember = memberService.login("userId", "userPw");
+
+        // then
+        assertNotNull(loginMember);
+        assertEquals("userA", loginMember.getUsername());
+    }
+
+    @Test
+    public void 로그인_실패_아이디_없음() {
+        // given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("userA");
+        member.setEmail("userA");
+        member.setPassword("userPw");
+
+        memberService.join(member);
+
+        // when & then
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            memberService.login("userId2", "userPw");
+        });
+        assertEquals("존재하지 않는 아이디입니다.", thrown.getMessage());
+    }
+
+    @Test
+    public void 로그인_실패_비밀번호_불일치() {
+        // given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("userA");
+        member.setEmail("userA");
+        member.setPassword("userPw");
+
+        memberService.join(member);
+
+        // when & then
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            memberService.login("userId", "userPw2");
+        });
+        assertEquals("비밀번호가 틀렸습니다.", thrown.getMessage());
+    }
+
+    @Test
+    public void 아이디_찾기_성공() {
+        // given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("userA");
+        member.setEmail("userMail");
+        member.setPassword("userPw");
+
+        memberService.join(member);
+
+        // when
+        String findId = memberService.findId("userA", "userMail");
+
+        // then
+        assertEquals("userId", findId);
+    }
+
+    @Test
+    public void 아이디_찾기_실패() {
+        // when & then
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            memberService.findId("noname", "noemail@example.com");
+        });
+        assertEquals("이름과 이메일이 일치하는 회원이 없습니다.", thrown.getMessage());
+    }
+
+    @Test
+    public void 비밀번호_찾기_성공() {
+        // given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("userA");
+        member.setEmail("userMail");
+        member.setPassword("userPw");
+
+        memberService.join(member);
+
+        // when
+        String password = memberService.findPassword("userId", "userMail");
+
+        // then
+        assertEquals("userPw", password);
+    }
+
+    @Test
+    public void 비밀번호_찾기_실패_아이디없음() {
+        // when & then
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            memberService.findPassword("noUser", "userMail");
+        });
+        assertEquals("존재하지 않는 아이디입니다.", thrown.getMessage());
+    }
+
+    @Test
+    public void 비밀번호_찾기_실패_이메일불일치() {
+        // given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("userA");
+        member.setEmail("userMail");
+        member.setPassword("userPw");
+
+        memberService.join(member);
+
+        // when & then
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> {
+            memberService.findPassword("userId", "userMail2");
+        });
+        assertEquals("이메일이 일치하지 않습니다.", thrown.getMessage());
+    }
+
+    @Test
+    public void 회원_탈퇴_성공() {
+        // given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("userA");
+        member.setEmail("userMail");
+        member.setPassword("userPw");
+
+        memberService.join(member);
+
+        // when
+        memberService.deleteMember("userId");
+
+        // then
+        Member deletedMember = memberRepository.findById("userId");
+        assertNull(deletedMember);
+    }
 }

@@ -19,9 +19,10 @@ public class Schedule {
     private LocalDate date;
     private String description;
 
-    @OneToMany(mappedBy = "schedule")
+    @OneToMany(mappedBy = "schedule", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Map> maps;
 
-    @OneToOne(mappedBy = "schedule")
+    @OneToOne
+    @JoinColumn(name = "budget_id")
     private Budget budget;
 }
