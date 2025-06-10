@@ -15,6 +15,7 @@ public class ScheduleService {
 
     /**
      *  plan에서 만들어버리니 save는 필요가 없나..?
+     *  나도 그래서 update만 만들긴 했는데 일단 만들어두면 언젠간 쓸듯
      */
     @Transactional
     public void saveSchedule(Schedule schedule) {

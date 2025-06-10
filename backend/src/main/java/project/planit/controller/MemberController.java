@@ -22,9 +22,9 @@ public class MemberController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<Member> login(@RequestParam String id, @RequestParam String password) {
-        Member member = memberService.login(id, password);
-        return ResponseEntity.ok(member);
+    public ResponseEntity<Member> login(@RequestBody Member member) {
+        Member loginMember = memberService.login(member.getId(), member.getPassword());
+        return ResponseEntity.ok(loginMember);
     }
 
     // 아이디 찾기
