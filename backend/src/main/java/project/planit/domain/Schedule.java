@@ -28,4 +28,14 @@ public class Schedule {
     @OneToOne
     @JoinColumn(name = "budget_id")
     private Budget budget;
+
+    public void update(String description, List<Map> maps) {
+        this.description = description;
+//        this.budget = budget;
+
+        if (maps != null) {
+            this.maps.clear();
+            this.maps.addAll(maps);
+        }
+    }
 }

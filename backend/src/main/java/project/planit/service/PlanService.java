@@ -47,10 +47,10 @@ public class PlanService {
             schedule.setPlan(plan);
             schedule.setDate(date);
 
-            scheduleRepository.save(schedule);
+            plan.getSchedules().add(schedule);
             date = date.plusDays(1);
         }
-
+        planRepository.save(plan);
         return plan.getId();
     }
 
