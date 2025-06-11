@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SignUp() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
     id: '',
-    name: '',
+    username: '',
     password: '',
     confirmPassword: '',
     nickname: '',
@@ -17,7 +18,7 @@ function SignUp() {
 
   const {
     id,
-    name,
+    username,
     password,
     confirmPassword,
     nickname,
@@ -38,10 +39,38 @@ function SignUp() {
     navigate(-1); // 이전 페이지로 이동
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // 회원가입 로직 추가
-    console.log(form);
+
+    if (password !== confirmPassword) {
+      alert('비밀번호가 일치하지 않습니다.');
+      return;
+    }
+
+    const postData = {
+      id,
+      username,
+      password,
+      nickname,
+      email,
+      phone,
+    };
+
+    try {
+      await axios.post('http://localhost:8080/members/sign-up', postData);
+
+      alert('회원가입이 완료되었습니다!');
+      navigate('/sign-in');
+    } catch (error) {
+      if (error.response) {
+        alert(
+          '회원가입 실패: ' + (error.response.data.message || '알 수 없는 오류')
+        );
+      } else {
+        alert('서버와 통신 중 오류가 발생했습니다.');
+      }
+      console.error('Axios error:', error);
+    }
   }
 
   function handleCheckId() {
@@ -90,8 +119,8 @@ function SignUp() {
             이름
             <input
               type="text"
-              name="name"
-              value={name}
+              name="username"
+              value={username}
               onChange={onChange}
               style={styles.input}
               placeholder="이름을 입력하세요"

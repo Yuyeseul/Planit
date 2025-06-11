@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function SignIn() {
   const [form, setForm] = useState({
@@ -19,13 +20,31 @@ function SignIn() {
     }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // 로그인 로직 추가
-    console.log(form);
 
-    // 로그인 성공 시 홈으로 이동
-    navigate('/home');
+    // 서버에 보낼 데이터
+    const postData = {
+      id,
+      password,
+    };
+
+    try {
+      await axios.post('http://localhost:8080/members/sign-in', postData, {
+        withCredentials: true,
+      });
+      alert('로그인 성공!');
+      navigate('/home');
+    } catch (error) {
+      if (error.response) {
+        alert(
+          '로그인 실패: ' + (error.response.data.message || '알 수 없는 오류')
+        );
+      } else {
+        alert('서버와 통신 중 오류가 발생했습니다.');
+      }
+      console.error('Axios error:', error);
+    }
   }
 
   return (

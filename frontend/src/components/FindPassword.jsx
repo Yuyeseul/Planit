@@ -95,7 +95,6 @@ function FindPassword() {
           </button>
         </div>
 
-        {/* 인증번호 입력 칸과 인증 확인 버튼을 옆에 배치 */}
         <div
           style={{
             ...styles.inputGroup,

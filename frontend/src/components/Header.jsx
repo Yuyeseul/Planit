@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import planitLogo from '../assets/planit_logo.png';
 import mypageIcon from '../assets/mypage.png';
 import setting from '../assets/settings.png';
 

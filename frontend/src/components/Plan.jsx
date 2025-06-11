@@ -2,6 +2,7 @@ import planitLogo from '../assets/planit_logo.png';
 import React, { useState } from 'react';
 import FriendsList from './FriendsList';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function Plan() {
   const [planList, setPlanList] = useState({
@@ -39,6 +40,21 @@ function Plan() {
     e.preventDefault();
     console.log(planList);
     navigate('/plan-detail');
+
+    /**
+     *  로그인 세션 해결 후
+     */
+    // // 백엔드 연동
+    // axios
+    //   .post('http://localhost:5000/api/plans', planList)
+    //   .then((response) => {
+    //     console.log('계획 생성 성공:', response.data);
+    //     navigate('/plan-detail');
+    //   })
+    //   .catch((error) => {
+    //     console.error('계획 생성 실패:', error);
+    //     alert('계획 생성에 실패했습니다. 다시 시도해주세요.');
+    //   });
   }
 
   return (
@@ -93,7 +109,11 @@ function Plan() {
         {/* 친구 초대 */}
         <div style={{ ...styles.inputGroup, ...styles.row }}>
           <label style={styles.labelInline}>친구 초대</label>
-          <button type="button" onClick={() => setIsFriendsOpen(true)} style={styles.inviteButton}>
+          <button
+            type="button"
+            onClick={() => setIsFriendsOpen(true)}
+            style={styles.inviteButton}
+          >
             ➕︎
           </button>
         </div>

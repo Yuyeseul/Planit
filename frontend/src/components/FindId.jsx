@@ -1,15 +1,16 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 function FindId() {
   const navigate = useNavigate();
 
   const [form, setForm] = useState({
-    name: '',
+    username: '',
     email: '',
   });
 
-  const { name, email } = form;
+  const { username, email } = form;
 
   function onChange(e) {
     const { name, value } = e.target;
@@ -19,10 +20,40 @@ function FindId() {
     }));
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // 아이디 찾기 처리
-    console.log('이름:', name, '이메일:', email);
+    // 아이디 찾기 처리 (서버 요청)
+    try {
+      await axios.post('http://localhost:8080/members/find-id', {
+        username,
+        email,
+      });
+      // 성공 시 서버가 아이디를 반환한다고 가정하면, 아래처럼 할 수 있지만
+      // 그냥 response 없이 성공만 처리하려면 다음처럼 작성할 수 있습니다:
+      // alert('아이디 찾기 요청이 성공적으로 처리되었습니다.');
+      // navigate('/sign-in');
+
+      // 만약 아이디를 서버에서 받아서 보여주려면 이렇게:
+      const response = await axios.post(
+        'http://localhost:8080/members/find-id',
+        {
+          username,
+          email,
+        }
+      );
+      alert(`아이디는: ${response.data} 입니다.`);
+      navigate('/sign-in');
+    } catch (error) {
+      if (error.response) {
+        alert(
+          '아이디 찾기 실패: ' +
+            (error.response.data.message || '알 수 없는 오류')
+        );
+      } else {
+        alert('서버와 통신 중 오류가 발생했습니다.');
+      }
+      console.error('Axios error:', error);
+    }
   }
 
   function handleCancel() {
@@ -38,8 +69,8 @@ function FindId() {
             이름
             <input
               type="text"
-              name="name"
-              value={name}
+              name="username"
+              value={username}
               onChange={onChange}
               style={styles.input}
               placeholder="이름을 입력하세요"
