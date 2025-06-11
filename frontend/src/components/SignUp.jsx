@@ -249,7 +249,7 @@ const styles = {
   title: {
     fontSize: '32px',
     marginBottom: '30px',
-    color: '#333',
+    color: '#003366',
   },
   form: {
     display: 'flex',
@@ -261,25 +261,28 @@ const styles = {
   },
   label: {
     display: 'block',
-    fontSize: '20px',
+    fontSize: '18px',
     marginBottom: '8px',
     color: '#555',
   },
   input: {
     width: '100%',
     padding: '12px',
-    fontSize: '18px',
+    marginTop: '5px',
+    fontSize: '17px',
     borderRadius: '6px',
     border: '1px solid #ccc',
     outline: 'none',
+    boxSizing: 'border-box',
   },
   row: {
     display: 'flex',
     gap: '10px',
   },
   checkButton: {
-    padding: '12px 16px',
+    padding: '5px 16px',
     fontSize: '16px',
+    marginTop: '5px',
     backgroundColor: '#003366',
     color: '#fff',
     border: 'none',
@@ -293,8 +296,8 @@ const styles = {
     marginTop: '20px',
   },
   button: {
-    padding: '14px 20px',
-    fontSize: '20px',
+    padding: '12px 20px',
+    fontSize: '18px',
     backgroundColor: '#003366',
     color: '#fff',
     border: 'none',
@@ -303,8 +306,8 @@ const styles = {
     transition: 'background-color 0.3s',
   },
   cancelButton: {
-    padding: '14px 20px',
-    fontSize: '20px',
+    padding: '12px 20px',
+    fontSize: '18px',
     backgroundColor: '#aaa',
     color: '#fff',
     border: 'none',

@@ -1,18 +1,18 @@
-import planitLogo from '../assets/planit_logo.png';
+import profile from '../assets/profile.png';
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import FriendsList from './FriendsList';
 
 function MyPage() {
   const [user] = useState({
-    name: '예슬',
-    profileImage: planitLogo,
+    name: 'user',
+    profileImage: profile,
   });
 
   const mockFriends = [
-    { id: 1, name: 'Alice', avatar: planitLogo },
-    { id: 2, name: 'Bob', avatar: planitLogo },
-    { id: 3, name: 'Charlie', avatar: planitLogo },
+    { id: 1, name: 'Alice', avatar: profile },
+    { id: 2, name: 'Bob', avatar: profile },
+    { id: 3, name: 'Charlie', avatar: profile },
   ];
 
   const [isFriendsOpen, setIsFriendsOpen] = useState(false);
@@ -93,12 +93,12 @@ const styles = {
   },
   editBtn: {
     marginTop: '20px',
-    padding: '6px 20px',
+    padding: '10px 20px',
     fontSize: '16px',
     cursor: 'pointer',
-    backgroundColor: '#adb5bd',
+    backgroundColor: '#aaa',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '8px',
     color: 'white',
   },
   friendsSection: {
@@ -109,16 +109,16 @@ const styles = {
   },
   friendsCount: {
     textAlign: 'left',
-    fontSize: '20px',
+    fontSize: '18px',
   },
   addFriendBtn: {
     margin: '20px 20px 20px 0',
-    padding: '10px',
-    fontSize: '18px',
+    padding: '10px 20px',
+    fontSize: '16px',
     cursor: 'pointer',
-    backgroundColor: '#123456',
+    backgroundColor: '#003366',
     border: 'none',
-    borderRadius: '5px',
+    borderRadius: '8px',
     color: 'white',
   },
   contentGrid: {
@@ -128,7 +128,7 @@ const styles = {
   },
   card: {
     backgroundColor: '#f0f0f0',
-    height: '400px',
+    height: '350px',
     borderRadius: '10px',
   },
 };

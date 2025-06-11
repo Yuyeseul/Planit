@@ -49,7 +49,7 @@ function SignIn() {
 
   return (
     <div style={styles.container}>
-      <h1 style={styles.title}>로그인</h1>
+      <h1 style={styles.title}>Planit</h1>
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.inputGroup}>
           <label style={styles.label}>
@@ -103,7 +103,7 @@ function SignIn() {
 const styles = {
   container: {
     padding: '40px',
-    maxWidth: '600px',
+    maxWidth: '400px',
     margin: '50px auto',
     backgroundColor: '#f9f9f9',
     borderRadius: '12px',
@@ -111,7 +111,7 @@ const styles = {
     textAlign: 'center',
   },
   title: {
-    fontSize: '32px',
+    fontSize: '40px',
     marginBottom: '30px',
     color: '#003366',
   },
@@ -125,27 +125,32 @@ const styles = {
   },
   label: {
     display: 'block',
-    fontSize: '20px',
+    fontSize: '18px',
     marginBottom: '8px',
     color: '#555',
   },
   input: {
     width: '100%',
     padding: '12px',
-    fontSize: '18px',
+    marginTop: '5px',
+    fontSize: '17px',
     borderRadius: '6px',
     border: '1px solid #ccc',
     outline: 'none',
+    boxSizing: 'border-box',
   },
   button: {
-    padding: '14px 20px',
-    fontSize: '20px',
+    width: '100%',
+    padding: '12px 20px',
+    marginTop: '10px',
+    fontSize: '18px',
     backgroundColor: '#003366',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
+    boxSizing: 'border-box',
   },
   linksContainer: {
     marginTop: '20px',

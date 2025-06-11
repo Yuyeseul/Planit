@@ -31,7 +31,7 @@ public class ScheduleServiceTest {
 
     @Test
     @Rollback(false)
-    public void 일정_수정_테스트() throws Exception {
+    public void 일정_수정() throws Exception {
         // given
         Member member = new Member();
         member.setId("userId");
@@ -59,5 +59,37 @@ public class ScheduleServiceTest {
         // then
         Schedule updatedSchedule = scheduleRepository.findById(schedule.getId());
 
+    }
+
+    @Test
+    public void 일정_조회() throws Exception {
+        //given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("userA");
+        member.setEmail("userMail");
+        member.setPassword("userPw");
+        em.persist(member);
+
+        String planTitle = "일정 조회 테스트";
+        LocalDate startDate = LocalDate.of(2025, 6, 15);
+        LocalDate endDate = LocalDate.of(2025, 6, 17);
+
+        Long planId = planService.createPlan(member.getId(), planTitle, startDate, endDate);
+
+        //when
+        var schedules = scheduleService.findByPlan(planId);
+
+        //then
+        assertThat(schedules).isNotNull();
+        assertThat(schedules).hasSize(3);  // 6/15, 6/16, 6/17
+        assertThat(schedules)
+                .extracting(Schedule::getDate)
+                .containsExactlyInAnyOrder(
+                        LocalDate.of(2025, 6, 15),
+                        LocalDate.of(2025, 6, 16),
+                        LocalDate.of(2025, 6, 17)
+                );
     }
 }

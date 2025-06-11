@@ -42,10 +42,10 @@ const PlanDetail = () => {
         ))}
       </div>
 
-      {/* 본문: 지도 + 장소 검색 + 일정 설명 */}
+      {/* 본문: 지도 + 장소 검색 + 일정 설명 + 예산 */}
       <div style={styles.dayContent}>
         {/* 지도 API 자리 */}
-        <div style={styles.mapSection}>[지도 API 들어갈 자리]</div>
+        <div style={styles.mapSection}>[지도 API]</div>
 
         {/* 장소 검색 */}
         <div style={styles.placeSearch}>
@@ -56,6 +56,7 @@ const PlanDetail = () => {
           />
           <button>검색</button>
           <button>추가</button>
+          <button>삭제</button>
         </div>
 
         {/* 일정 설명 글 */}
@@ -64,6 +65,22 @@ const PlanDetail = () => {
             style={styles.descriptionSectionTextarea}
             placeholder="일정 설명을 입력하세요"
           />
+        </div>
+
+        {/* 예산 표시 및 저장 버튼*/}
+        <div style={styles.labelGroup}>
+          <div style={styles.budget}>
+            <div style={styles.name}>예산:</div>
+            <input
+              style={styles.budgetInput}
+              type="number"
+              placeholder="예산을 입력하세요"
+              min="0"
+            />
+          </div>
+          <button type="submit" style={styles.button}>
+            저장
+          </button>
         </div>
       </div>
     </div>
@@ -106,6 +123,7 @@ const styles = {
     gap: '8px',
   },
   dayTab: {
+    fontSize: '15px',
     padding: '8px 12px',
     border: 'none',
     backgroundColor: '#ddd',
@@ -113,7 +131,7 @@ const styles = {
     cursor: 'pointer',
   },
   dayTabActive: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#003366',
     color: 'white',
   },
   dayContent: {
@@ -135,15 +153,59 @@ const styles = {
     marginBottom: '15px',
   },
   placeInput: {
-    fontSize: '15px',
-    padding: '5px 10px',
+    fontSize: '16px',
+    padding: '7px 10px',
+    borderRadius: '6px',
+    border: '1px solid #ccc',
+    boxSizing: 'border-box',
+    outline: 'none',
   },
   descriptionSectionTextarea: {
     width: '100%',
     height: '200px',
-    fontSize: '15px',
+    fontSize: '16px',
     resize: 'none',
-    padding: '5px 10px',
+    padding: '7px 10px',
+    borderRadius: '6px',
+    border: '1px solid #ccc',
+    boxSizing: 'border-box',
+    marginBottom: '15px',
+    outline: 'none',
+  },
+  budget: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '8px',
+    marginLeft: '5px',
+  },
+  labelGroup: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  name: {
+    fontSize: '16px',
+    fontWeight: 'bold',
+  },
+  budgetInput: {
+    width: '170px',
+    padding: '7px 10px',
+    fontSize: '16px',
+    borderRadius: '6px',
+    border: '1px solid #ccc',
+    outline: 'none',
+  },
+  button: {
+    padding: '10px 40px',
+    fontSize: '16px',
+    backgroundColor: '#003366',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
+    transition: 'background-color 0.3s',
+    boxSizing: 'border-box',
   },
 };
 

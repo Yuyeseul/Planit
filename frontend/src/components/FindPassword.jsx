@@ -66,71 +66,66 @@ function FindPassword() {
           </label>
         </div>
 
-        <div
-          style={{
-            ...styles.inputGroup,
-            display: 'flex',
-            alignItems: 'flex-end',
-            gap: '10px',
-          }}
-        >
-          <label style={{ ...styles.label, flex: 1 }}>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>
             이메일
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={onChange}
-              style={styles.input}
-              placeholder="이메일을 입력하세요"
-              required
-            />
+            <div style={styles.row}>
+              <input
+                type="email"
+                name="email"
+                value={email}
+                onChange={onChange}
+                style={{ ...styles.input, flex: 1 }}
+                placeholder="이메일을 입력하세요"
+                required
+              />
+              <button
+                type="button"
+                onClick={sendVerificationCode}
+                style={styles.sendCodeButton}
+              >
+                인증번호 발송
+              </button>
+            </div>
           </label>
-          <button
-            type="button"
-            onClick={sendVerificationCode}
-            style={styles.sendCodeButton}
-          >
-            인증번호 발송
-          </button>
         </div>
 
-        <div
-          style={{
-            ...styles.inputGroup,
-            display: 'flex',
-            alignItems: 'center',
-            gap: '10px',
-          }}
-        >
-          <label style={{ ...styles.label, flex: 1 }}>
+        <div style={styles.inputGroup}>
+          <label style={styles.label}>
             인증번호 입력
-            <input
-              type="text"
-              name="verificationCode"
-              value={verificationCode}
-              onChange={onChange}
-              style={styles.input}
-              placeholder="인증번호를 입력하세요"
-              required
-            />
+            <div style={styles.row}>
+              <input
+                type="text"
+                name="verificationCode"
+                value={verificationCode}
+                onChange={onChange}
+                style={{ ...styles.input, flex: 1 }}
+                placeholder="인증번호를 입력하세요"
+                required
+              />
+              <button
+                type="button"
+                onClick={verifyCode}
+                style={styles.verifyButton}
+              >
+                인증 확인
+              </button>
+            </div>
           </label>
-          <button
-            type="button"
-            onClick={verifyCode}
-            style={styles.verifyButton}
-          >
-            인증 확인
-          </button>
         </div>
 
-        <button
-          type="button"
-          onClick={handleCancel}
-          style={styles.cancelButton}
-        >
-          취소
-        </button>
+        <div style={styles.buttonGroup}>
+          <button type="submit" style={styles.button}>
+            비밀번호 찾기
+          </button>
+          <button
+            type="button"
+            onClick={handleCancel}
+            style={styles.cancelButton}
+          >
+            취소
+          </button>
+        </div>
       </form>
     </div>
   );
@@ -139,7 +134,7 @@ function FindPassword() {
 const styles = {
   container: {
     padding: '40px',
-    maxWidth: '600px',
+    maxWidth: '500px',
     margin: '50px auto',
     backgroundColor: '#f9f9f9',
     borderRadius: '12px',
@@ -163,18 +158,23 @@ const styles = {
   },
   label: {
     display: 'block',
-    fontSize: '20px',
+    fontSize: '18px',
     marginBottom: '8px',
     color: '#555',
   },
   input: {
     width: '100%',
     padding: '12px',
-    fontSize: '18px',
+    marginTop: '5px',
+    fontSize: '17px',
     borderRadius: '6px',
     border: '1px solid #ccc',
     outline: 'none',
     boxSizing: 'border-box',
+  },
+  row: {
+    display: 'flex',
+    gap: '10px',
   },
   sendCodeButton: {
     padding: '10px 16px',
@@ -195,19 +195,34 @@ const styles = {
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
+    alignSelf: 'flex-end',
+    transition: 'background-color 0.3s',
+  },
+  buttonGroup: {
+    display: 'flex',
+    justifyContent: 'center',
+    gap: '20px',
+    marginTop: '20px',
+  },
+  button: {
+    padding: '12px 20px',
+    fontSize: '18px',
+    backgroundColor: '#003366',
+    color: '#fff',
+    border: 'none',
+    borderRadius: '8px',
+    cursor: 'pointer',
     transition: 'background-color 0.3s',
   },
   cancelButton: {
-    marginTop: '10px',
-    padding: '14px 20px',
-    fontSize: '20px',
+    padding: '12px 20px',
+    fontSize: '18px',
     backgroundColor: '#aaa',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
-    width: '100%',
   },
 };
 

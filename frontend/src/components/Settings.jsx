@@ -124,7 +124,7 @@ function Settings() {
 const styles = {
   container: {
     padding: '40px',
-    maxWidth: '600px',
+    maxWidth: '500px',
     margin: '50px auto',
     backgroundColor: '#f9f9f9',
     borderRadius: '12px',
@@ -133,7 +133,7 @@ const styles = {
   },
   title: {
     fontSize: '32px',
-    marginBottom: '30px',
+    marginBottom: '50px',
     color: '#333',
   },
   settingItem: {
@@ -145,11 +145,11 @@ const styles = {
     cursor: 'pointer',
   },
   label: {
-    fontSize: '20px',
+    fontSize: '18px',
     color: '#555',
   },
   linkLabel: {
-    fontSize: '20px',
+    fontSize: '18px',
     color: '#007bff',
     textDecoration: 'underline',
     cursor: 'pointer',
@@ -157,26 +157,29 @@ const styles = {
   buttonGroup: {
     display: 'flex',
     flexDirection: 'column',
-    gap: '20px',
+    gap: '15px',
     marginTop: '40px',
   },
   button: {
-    padding: '14px 20px',
-    fontSize: '20px',
+    padding: '12px 20px',
+    fontSize: '18px',
     backgroundColor: '#003366',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
+    transition: 'background-color 0.3s',
   },
   deleteButton: {
-    padding: '14px 20px',
-    fontSize: '20px',
+    
+    padding: '12px 20px',
+    fontSize: '18px',
     backgroundColor: '#adb5bd',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
+    transition: 'background-color 0.3s',
   },
 };
 

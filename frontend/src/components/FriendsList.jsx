@@ -101,9 +101,6 @@ function FriendsList({ isOpen, onClose, friends = [], members = [] }) {
               친구추가
             </button>
           )}
-          <button style={styles.cancelButton} onClick={onClose}>
-            취소
-          </button>
         </div>
       </div>
     </div>
@@ -148,6 +145,7 @@ const styles = {
     marginBottom: '0.8rem',
     border: '1px solid #ccc',
     borderRadius: '4px',
+    boxSizing: 'border-box',
   },
   tabContainer: {
     display: 'flex',
@@ -200,14 +198,6 @@ const styles = {
     marginRight: '0.5rem',
     background: '#4CAF50',
     color: '#fff',
-    border: 'none',
-    borderRadius: '4px',
-    cursor: 'pointer',
-  },
-  cancelButton: {
-    padding: '0.5rem 1rem',
-    background: '#ccc',
-    color: '#000',
     border: 'none',
     borderRadius: '4px',
     cursor: 'pointer',
