@@ -1,9 +1,25 @@
 import React, { useState } from 'react';
+import { GoogleMap, useJsApiLoader } from '@react-google-maps/api';
+
+const containerStyle = {
+  width: '100%',
+  height: '300px',
+};
+
+const center = {
+  lat: 37.5665,
+  lng: 126.9780,
+};
 
 const PlanDetail = () => {
   const [selectedDay, setSelectedDay] = useState(1);
   const days = Array.from({ length: 10 }, (_, i) => i + 1);
   const friends = ['프로필1', '프로필2', '프로필3'];
+
+  const { isLoaded } = useJsApiLoader({
+    id: 'google-map-script',
+    googleMapsApiKey: 'API_KEY', // 키 입력
+  });
 
   return (
     <div style={styles.planDetail}>
@@ -45,7 +61,19 @@ const PlanDetail = () => {
       {/* 본문: 지도 + 장소 검색 + 일정 설명 + 예산 */}
       <div style={styles.dayContent}>
         {/* 지도 API 자리 */}
-        <div style={styles.mapSection}>[지도 API]</div>
+        <div style={styles.mapSection}>
+          {isLoaded ? (
+            <GoogleMap
+              mapContainerStyle={containerStyle}
+              center={center}
+              zoom={14}
+            >
+              {/* 마커, 경로 등 삽입 가능 */}
+            </GoogleMap>
+          ) : (
+            <div>지도를 불러오는 중...</div>
+          )}
+        </div>
 
         {/* 장소 검색 */}
         <div style={styles.placeSearch}>
