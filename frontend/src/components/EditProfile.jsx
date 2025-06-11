@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import profile from '../assets/profile.png';
 
 function EditProfile() {
   const navigate = useNavigate();
@@ -88,7 +89,7 @@ function EditProfile() {
       <form onSubmit={handleSubmit} style={styles.form}>
         <div style={styles.profileContainer}>
           <img
-            src={previewImage || 'https://via.placeholder.com/120'} // 기본 이미지
+            src={previewImage || profile} // 기본 이미지
             alt="프로필"
             style={styles.profileImage}
           />
@@ -220,7 +221,7 @@ function EditProfile() {
         </div>
         <div style={styles.buttonGroup}>
           <button type="submit" style={styles.button}>
-            정보 수정
+            정보 저장
           </button>
           <button
             type="button"
@@ -260,17 +261,19 @@ const styles = {
   },
   label: {
     display: 'block',
-    fontSize: '20px',
+    fontSize: '18px',
     marginBottom: '8px',
     color: '#555',
   },
   input: {
     width: '100%',
     padding: '12px',
-    fontSize: '18px',
+    marginTop: '5px',
+    fontSize: '17px',
     borderRadius: '6px',
     border: '1px solid #ccc',
     outline: 'none',
+    boxSizing: 'border-box',
   },
   row: {
     display: 'flex',
@@ -279,6 +282,7 @@ const styles = {
   checkButton: {
     padding: '12px 16px',
     fontSize: '16px',
+    marginTop: '5px',
     backgroundColor: '#003366',
     color: '#fff',
     border: 'none',
@@ -292,8 +296,8 @@ const styles = {
     marginTop: '20px',
   },
   button: {
-    padding: '14px 20px',
-    fontSize: '20px',
+    padding: '12px 20px',
+    fontSize: '18px',
     backgroundColor: '#003366',
     color: '#fff',
     border: 'none',
@@ -302,8 +306,8 @@ const styles = {
     transition: 'background-color 0.3s',
   },
   cancelButton: {
-    padding: '14px 20px',
-    fontSize: '20px',
+    padding: '12px 20px',
+    fontSize: '18px',
     backgroundColor: '#aaa',
     color: '#fff',
     border: 'none',

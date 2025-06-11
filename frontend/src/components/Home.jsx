@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import { useNavigate } from 'react-router-dom';
+import  travel from '../assets/travel.png';
 import 'react-calendar/dist/Calendar.css';
 
 function Home() {
@@ -8,16 +9,16 @@ function Home() {
 
   const places = {
     국내: [
-      { name: '제주도', image: '/images/jeju.jpg' },
-      { name: '부산', image: '/images/busan.jpg' },
-      { name: '서울', image: '/images/seoul.jpg' },
-      { name: '강릉', image: '/images/gangneung.jpg' },
+      { name: '제주도', image: travel },
+      { name: '부산', image: travel },
+      { name: '서울', image: travel },
+      { name: '강릉', image: travel },
     ],
     해외: [
-      { name: '다낭', image: '/images/danang.jpg' },
-      { name: '오사카', image: '/images/osaka.jpg' },
-      { name: '방콕', image: '/images/bangkok.jpg' },
-      { name: '파리', image: '/images/paris.jpg' },
+      { name: '다낭', image: travel },
+      { name: '오사카', image: travel },
+      { name: '방콕', image: travel },
+      { name: '파리', image: travel },
     ],
   };
 
@@ -43,7 +44,7 @@ function Home() {
             {/* 국내 여행 카드 */}
             <div style={styles.travelCard}>
               <h2 style={styles.heading}>
-                국내 여행
+                국내 여행 추천
                 <button
                   style={styles.moreButton}
                   onClick={() => handleMoreClick('domestic')}
@@ -74,7 +75,7 @@ function Home() {
             {/* 해외 여행 카드 */}
             <div style={styles.travelCard}>
               <h2 style={styles.heading}>
-                해외 여행
+                해외 여행 추천
                 <button
                   style={styles.moreButton}
                   onClick={() => handleMoreClick('overseas')}
@@ -108,7 +109,7 @@ function Home() {
         <aside style={styles.aside}>
           {/* Calendar */}
           <div>
-            <h2 style={styles.heading}>📅 Calendar</h2>
+            <h2 style={styles.heading}>Calendar</h2>
             <div style={styles.calendarWrapper}>
               <Calendar onChange={setValue} value={value} />
             </div>
@@ -116,7 +117,7 @@ function Home() {
 
           {/* Checklist */}
           <div>
-            <h2 style={styles.heading}>✔️ Checklist</h2>
+            <h2 style={styles.heading}>Checklist</h2>
             <ul style={styles.checklist}>
               {['여권 준비', '숙소 예약', '여행자 보험 가입'].map(
                 (item, idx) => (
@@ -156,14 +157,15 @@ const styles = {
     flexDirection: 'column',
   },
   planButton: {
-    backgroundColor: 'white',
-    color: 'black',
-    padding: '0.5rem 1rem',
-    borderRadius: '0.375rem',
+    backgroundColor: '#ddd',
+    padding: '12px 20px',
+    borderRadius: '8px',
     boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-    marginBottom: '1rem',
+    marginBottom: '15px',
+    fontSize: '15px',
     width: '14rem',
     cursor: 'pointer',
+    border: 'none',
   },
   travelGrid: {
     display: 'grid',

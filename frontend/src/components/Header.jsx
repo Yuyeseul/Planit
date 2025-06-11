@@ -33,7 +33,7 @@ function Header() {
 const styles = {
   header: {
     position: 'relative',
-    backgroundColor: '#cfe2ff',
+    backgroundColor: '#003366',
     padding: '10px 20px',
     borderBottom: '1px solid #ddd',
     height: '50px',
@@ -51,8 +51,8 @@ const styles = {
   },
   mypage: {
     position: 'absolute',
-    right: '80px',
-    top: '50%',
+    right: '85px',
+    top: '53%',
     transform: 'translateY(-50%)',
     backgroundColor: 'transparent',
     border: 'none',
@@ -63,7 +63,7 @@ const styles = {
   setting: {
     position: 'absolute',
     right: '30px',
-    top: '50%',
+    top: '53%',
     transform: 'translateY(-50%)',
     backgroundColor: 'transparent',
     border: 'none',

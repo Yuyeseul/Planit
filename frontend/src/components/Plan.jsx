@@ -1,4 +1,4 @@
-import planitLogo from '../assets/planit_logo.png';
+import profile from '../assets/profile.png';
 import React, { useState } from 'react';
 import FriendsList from './FriendsList';
 import { useNavigate } from 'react-router-dom';
@@ -22,9 +22,9 @@ function Plan() {
   }
 
   const mockFriends = [
-    { id: 1, name: 'Alice', avatar: planitLogo },
-    { id: 2, name: 'Bob', avatar: planitLogo },
-    { id: 3, name: 'Charlie', avatar: planitLogo },
+    { id: 1, name: 'Alice', avatar: profile },
+    { id: 2, name: 'Bob', avatar: profile },
+    { id: 3, name: 'Charlie', avatar: profile },
   ];
 
   const [isFriendsOpen, setIsFriendsOpen] = useState(false);
@@ -139,7 +139,7 @@ function Plan() {
 const styles = {
   container: {
     padding: '40px',
-    maxWidth: '600px',
+    maxWidth: '500px',
     margin: '50px auto',
     backgroundColor: '#f9f9f9',
     borderRadius: '12px',
@@ -161,23 +161,25 @@ const styles = {
   },
   label: {
     display: 'block',
-    fontSize: '20px',
+    fontSize: '18px',
     marginBottom: '8px',
     color: '#555',
   },
   input: {
     width: '100%',
     padding: '12px',
-    fontSize: '18px',
+    marginTop: '5px',
+    fontSize: '17px',
     borderRadius: '6px',
     border: '1px solid #ccc',
     outline: 'none',
+    boxSizing: 'border-box',
   },
   dateRow: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: '10px',
+    gap: '5px',
   },
   dateInputWrapper: {
     flex: 1,
@@ -203,14 +205,17 @@ const styles = {
     gap: '12px',
   },
   button: {
-    padding: '14px 20px',
-    fontSize: '20px',
+    width: '100%',
+    padding: '12px 20px',
+    marginTop: '10px',
+    fontSize: '18px',
     backgroundColor: '#003366',
     color: '#fff',
     border: 'none',
     borderRadius: '8px',
     cursor: 'pointer',
     transition: 'background-color 0.3s',
+    boxSizing: 'border-box',
   },
 };
 
