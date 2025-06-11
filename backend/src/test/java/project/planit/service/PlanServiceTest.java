@@ -59,6 +59,36 @@ public class PlanServiceTest {
     }
 
     @Test
+    public void 여행계획_조회() throws Exception {
+        //given
+        Member member = new Member();
+        member.setId("userId");
+        member.setUsername("userA");
+        member.setNickname("userA");
+        member.setEmail("userMail");
+        member.setPassword("userPw");
+        em.persist(member);
+
+        String planTitle1 = "여행1";
+        String planTitle2 = "여행2";
+        LocalDate startDate = LocalDate.of(2025, 7, 1);
+        LocalDate endDate = LocalDate.of(2025, 7, 3);
+
+        planService.createPlan(member.getId(), planTitle1, startDate, endDate);
+        planService.createPlan(member.getId(), planTitle2, startDate, endDate);
+
+        //when
+        List<Plan> plans = planService.findPlanByMember(member.getId());
+
+        //then
+        assertThat(plans).isNotNull();
+        assertThat(plans).hasSize(2);
+        assertThat(plans)
+                .extracting(Plan::getTitle)
+                .containsExactlyInAnyOrder(planTitle1, planTitle2);
+    }
+
+    @Test
     @Rollback(false)
     public void 여행계획_삭제() throws Exception {
         // given

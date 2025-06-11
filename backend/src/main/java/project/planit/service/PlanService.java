@@ -3,6 +3,7 @@ package project.planit.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.planit.domain.CheckList;
 import project.planit.domain.Member;
 import project.planit.domain.Plan;
 import project.planit.domain.Schedule;
@@ -11,6 +12,7 @@ import project.planit.repository.PlanRepository;
 import project.planit.repository.ScheduleRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 @Transactional(readOnly = true)
@@ -21,9 +23,7 @@ public class PlanService {
     private final MemberRepository memberRepository;
     private final ScheduleRepository scheduleRepository;
 
-    /**
-     * 여행 계획 생성
-     */
+    // 여행 계획 생성
     @Transactional
     public Long createPlan(String memberId, String planTitle, LocalDate startDate, LocalDate endDate) {
 
@@ -36,8 +36,6 @@ public class PlanService {
         plan.setTitle(planTitle);
         plan.setStartDate(startDate);
         plan.setEndDate(endDate);
-
-        planRepository.save(plan);
 
         // 날짜별 일정 생성 및 저장
         LocalDate date = startDate;
@@ -53,9 +51,14 @@ public class PlanService {
         return plan.getId();
     }
 
-    /**
-     * 여행 계획 삭제
-     */
+    // 여행 계획 조회
+    @Transactional(readOnly = true)
+    public List<Plan> findPlanByMember(String memberId) {
+        Member member = memberRepository.findById(memberId);
+        return planRepository.findByMember(member);
+    }
+
+    // 여행 계획 삭제
     @Transactional
     public void deletePlan(Long planId) {
         Plan plan = planRepository.findById(planId);
