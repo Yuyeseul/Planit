@@ -7,29 +7,31 @@ import project.planit.domain.Member;
 import project.planit.service.MemberService;
 
 @RestController
-@RequestMapping("/api/members")
+@RequestMapping("/members")
 @RequiredArgsConstructor
 public class MemberController {
 
     private final MemberService memberService;
 
     // 회원 생성
-    @PostMapping("/signup")
+    @PostMapping("/sign-up")
     public ResponseEntity<String> createMember(@RequestBody Member member) {
         String memberId = memberService.join(member);
         return ResponseEntity.ok(memberId);
     }
 
     // 로그인
-    @PostMapping("/login")
+    @PostMapping("/sign-in")
     public ResponseEntity<Member> login(@RequestBody Member member) {
         Member loginMember = memberService.login(member.getId(), member.getPassword());
         return ResponseEntity.ok(loginMember);
     }
 
     // 아이디 찾기
-    @GetMapping("/find-id")
-    public ResponseEntity<String> findId(@RequestParam String username, @RequestParam String email) {
+    @PostMapping("/find-id")
+    public ResponseEntity<String> findId(@RequestBody Member member) {
+        String username = member.getUsername();
+        String email = member.getEmail();
         String id = memberService.findId(username, email);
         return ResponseEntity.ok(id);
     }

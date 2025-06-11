@@ -4,7 +4,6 @@ import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 import project.planit.domain.Friend;
-import project.planit.domain.Plan;
 
 import java.util.List;
 

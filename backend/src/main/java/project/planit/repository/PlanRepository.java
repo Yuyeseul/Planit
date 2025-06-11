@@ -3,7 +3,6 @@ package project.planit.repository;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import project.planit.domain.Member;
 import project.planit.domain.Plan;
 
 @Repository

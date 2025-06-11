@@ -7,8 +7,6 @@ import org.springframework.transaction.annotation.Transactional;
 import project.planit.domain.Member;
 import project.planit.repository.MemberRepository;
 
-import java.util.List;
-
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
